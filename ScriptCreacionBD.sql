@@ -1,15 +1,15 @@
--- Crear la base de datos
+-- Tabla principal
 CREATE DATABASE GestorTareas;
 USE GestorTareas;
 
--- Crear tabla EQUIPOS
+-- Tabla principal
 CREATE TABLE EQUIPOS (
     Codigo INT AUTO_INCREMENT PRIMARY KEY,
-    Nombre VARCHAR(50) NOT NULL,
+    Nombre VARCHAR(50) NOT NULL UNIQUE,  -- UNIQUE para que no se repitan los nombres
     Descripcion TEXT
 );
 
--- Crear tabla PERSONAS
+-- Tabla principal
 CREATE TABLE PERSONAS (
     Codigo INT AUTO_INCREMENT PRIMARY KEY,
     Nombre VARCHAR(50) NOT NULL,
@@ -18,7 +18,7 @@ CREATE TABLE PERSONAS (
     Correo_electronico VARCHAR(255)
 );
 
--- Crear tabla TAREAS
+-- Tabla principal
 CREATE TABLE TAREAS (
     Codigo INT AUTO_INCREMENT PRIMARY KEY,
     Titulo VARCHAR(50) NOT NULL,
@@ -27,10 +27,10 @@ CREATE TABLE TAREAS (
     Estado ENUM('PENDIENTE', 'EN PROGRESO', 'COMPLETADA') NOT NULL,
     Fecha_inicio DATETIME,
     Fecha_vencimiento DATETIME,
-    URL VARCHAR(2048) NULL
+    URL VARCHAR(2048) NULL -- La URL puede ser NULL
 );
 
--- Crear tabla PERSONAS_EQUIPOS (relación muchos a muchos entre PERSONAS y EQUIPOS)
+-- Tabla intermedia
 CREATE TABLE PERSONAS_EQUIPOS (
     Codigo INT AUTO_INCREMENT PRIMARY KEY,
     Cod_persona INT,
@@ -39,7 +39,7 @@ CREATE TABLE PERSONAS_EQUIPOS (
     FOREIGN KEY (Cod_equipo) REFERENCES EQUIPOS(Codigo) ON DELETE CASCADE
 );
 
--- Crear tabla EQUIPOS_TAREAS (relación muchos a muchos entre EQUIPOS y TAREAS)
+-- Tabla intermedia
 CREATE TABLE EQUIPOS_TAREAS (
     Codigo INT AUTO_INCREMENT PRIMARY KEY,
     Cod_tarea INT,
